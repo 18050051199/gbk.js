@@ -144,11 +144,23 @@ function sendDirective(arr) {
   return buffer;
 }
 
+const hexStringToBuffss = str => { //str='中国：WXHSH'
+  const buffer = new ArrayBuffer(str.length * 4)
+  const dataView = new DataView(buffer)
+  var data = str.toString();
+  var p = 0; //ArrayBuffer 偏移量
+  for (var i = 0; i < data.length; i++) {
+      var temp = data.charCodeAt(i);
+      dataView.setUint8(p++, temp)
+  }
+  return buffer;
+}
 module.exports = {
   hexStringToArrayBuffer: hexStringToArrayBuffer,
   hexStringToBuff: hexStringToBuff,
   send0X0A: send0X0A,
-  sendDirective: sendDirective
+  sendDirective: sendDirective,
+  hexStringToBuffss:hexStringToBuffss,
 }
 
 
